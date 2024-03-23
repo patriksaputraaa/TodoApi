@@ -30,9 +30,8 @@ namespace TodoApi.Controllers
 
         // GET: api/TodoItems/5
         [HttpGet("{offset}/{limit}")]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItem(int offset, int limit)
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItem(int offset, int limit, int tes)
         {
-
             if (_context.TodoItems == null)
             {
                 return NotFound();
@@ -48,6 +47,29 @@ namespace TodoApi.Controllers
             return NotFound();
             }
             return todoItem;
+        }
+
+        // GET: api/TodoItems/5/1/2/5
+        [HttpGet("{offset}/{limit}/{options}")]
+        public async Task<ActionResult<TodoCount>> GetTodoCountAll(int offset, int limit, int options)
+        {
+            if (_context.TodoItems == null)
+            {
+                return NotFound();
+            }
+
+            IQueryable<TodoItem> query = _context.TodoItems.AsQueryable();
+            // int start = offset * limit;
+            // query = query.OrderByDescending(TodoItem => TodoItem.Id).Skip(start).Take(limit);
+            var todoItem = await query.ToListAsync();
+            
+            int count = query.Count();
+            var todoCount = new TodoCount(count,todoItem);
+
+            if(todoItem == null){
+                return NotFound();
+            }
+            return todoCount;
         }
 
         // PUT: api/TodoItems/5
