@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
 
-var connectionString = "server=localhost; user=root; password=; database=todoapi";
+var connectionString = "server=localhost; user=root; password=; database=utsapi";
 var serverVersion = ServerVersion.AutoDetect(connectionString);
 
 builder.Services.AddDbContext<ApplicationDbContext>(
