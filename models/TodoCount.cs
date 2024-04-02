@@ -8,5 +8,4 @@ public class TodoCount{
         Count = count;
         DataTodoItem = dataTodoItem;
     }
-
 }
